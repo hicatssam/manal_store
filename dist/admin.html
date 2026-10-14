@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#242527">
+  <title>لوحة الإدارة | Manal Store</title>
+  <link rel="stylesheet" href="./refined.css?v=13">
+  <link rel="stylesheet" href="./components.css?v=13">
+  <script defer src="./data.js?v=13"></script>
+  <script defer src="./admin.js?v=13"></script>
+  <script defer src="./ui.js?v=13"></script>
+</head>
+<body class="admin-page">
+  <div class="admin-shell" hidden>
+    <aside class="sidebar" id="sidebar" aria-label="القائمة الرئيسية">
+      <a class="brand brand-sidebar" href="./index.html" aria-label="متجر منال"><span class="brand-symbol"><img src="./assets/manalstorelogo.png" alt="" width="2048" height="1365"></span><span class="brand-wordmark"><strong>MANAL</strong><small>STORE</small></span></a>
+      <nav id="adminNav" aria-label="أقسام لوحة الإدارة">
+        <div class="sidebar-label">الرئيسية</div>
+        <button class="nav-item active" data-view="overview" aria-current="page"><span data-icon="dashboard" aria-hidden="true"></span> نظرة عامة</button>
+        <button class="nav-item" data-view="notifications"><span data-icon="bell" aria-hidden="true"></span> الإشعارات</button><div class="sidebar-label">إدارة المتجر</div>
+        <button class="nav-item" data-view="orders"><span data-icon="orders" aria-hidden="true"></span> الطلبات والتوصيل <b class="nav-count" id="newOrderCount" hidden></b></button>
+        <button class="nav-item" data-view="products"><span data-icon="bag" aria-hidden="true"></span> المنتجات والمخزون</button>
+        <button class="nav-item" data-view="visitors"><span data-icon="users" aria-hidden="true"></span> الزوار والزيارات</button><button class="nav-item" data-view="customers"><span data-icon="users" aria-hidden="true"></span> الزبائن</button>
+        <div class="sidebar-label">واجهة المتجر</div>
+        <button class="nav-item" data-view="categories"><span data-icon="categories" aria-hidden="true"></span> الفئات</button>
+        <button class="nav-item" data-view="promotions"><span data-icon="image" aria-hidden="true"></span> الإعلانات</button>
+        <div class="sidebar-label">الدفع والتوصيل</div>
+        <button class="nav-item" data-view="payments"><span data-icon="card" aria-hidden="true"></span> طرق الدفع</button>
+        <button class="nav-item" data-view="delivery"><span data-icon="truck" aria-hidden="true"></span> تسعيرة التوصيل</button>
+      </nav>
+      <div class="sidebar-bottom"><a href="./index.html"><span data-icon="external" aria-hidden="true"></span> عرض المتجر</a><small><span class="local-status-dot"></span> نسخة تجريبية · بيانات هذا الجهاز</small></div>
+    </aside>
+    <div class="admin-main">
+      <header class="admin-topbar">
+        <div class="admin-top-left"><button id="menuToggle" class="icon-button mobile-menu" aria-label="فتح القائمة" aria-controls="sidebar" aria-expanded="false"><span data-icon="menu" aria-hidden="true"></span></button><div><small id="pageKicker">لوحة التحكم</small><h1 id="pageTitle">نظرة عامة</h1></div></div>
+        <div class="admin-top-actions"><button id="adminLogout" class="outline-link" type="button">تسجيل الخروج</button><span id="adminDate" class="admin-date"></span><div class="notification-hub"><button id="notificationButton" class="notification-bell" aria-label="الإشعارات" aria-controls="notificationDropdown" aria-expanded="false"><span data-icon="bell" aria-hidden="true"></span><b id="notificationCount" hidden></b></button><div id="notificationDropdown" class="notification-dropdown" hidden></div></div><a class="outline-link" href="./index.html">عرض المتجر <span data-icon="external" aria-hidden="true"></span></a></div>
+      </header>
+      <main id="adminContent" class="admin-content"></main>
+    </div>
+  </div>
+  <div id="adminOverlay" class="overlay" hidden></div>
+  <div id="adminModal" class="modal admin-modal" role="dialog" aria-modal="true" aria-label="تعديل البيانات" aria-hidden="true"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

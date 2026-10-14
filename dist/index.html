@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbfbfa">
+  <meta name="description" content="فساتين وقفاطين مختارة من Manal Store.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./assets/app-icon-192.png">
+  <title>Manal Store | فساتين بتفاصيل تحبيها</title>
+  <link rel="stylesheet" href="./refined.css?v=13">
+  <link rel="stylesheet" href="./components.css?v=13">
+  <script defer src="./data.js?v=13"></script>
+  <script defer src="./app.js?v=13"></script>
+  <script defer src="./ui.js?v=13"></script>
+</head>
+<body class="store-page">
+  <div class="announcement"><div class="container announcement-inner"><span>توصيل إلى جميع محافظات قطاع غزة</span><span>الأسعار بالشيكل ₪</span></div></div>
+  <header class="store-header">
+    <div class="container header-row">
+      <a class="brand" href="./index.html" aria-label="Manal Store الرئيسية"><span class="brand-symbol"><img src="./assets/manalstorelogo.png" alt="" width="2048" height="1365"></span><span class="brand-wordmark"><strong>MANAL</strong><small>STORE</small></span></a>
+      <nav class="desktop-nav" aria-label="التنقل الرئيسي"><a href="#collection">التشكيلة</a><button type="button" class="text-button" data-order-help>معلومات الطلب</button></nav>
+      <div class="header-actions">
+        <button id="customerNotificationButton" class="icon-button customer-bell" aria-label="إشعاراتي"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span id="customerNotificationCount" class="cart-count" hidden></span></button>
+        <button class="install-header" id="installButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"></path></svg><span>تثبيت التطبيق</span></button>
+        <button class="icon-button" id="searchToggle" title="بحث" aria-label="إظهار البحث"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg></button>
+        <button class="icon-button" id="accountButton" title="حسابي" aria-label="حسابي"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c.5-4.2 3.2-6 8-6s7.5 1.8 8 6"></path></svg></button>
+        <button class="icon-button cart-toggle" id="cartButton" title="سلة المشتريات" aria-label="سلة المشتريات"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16l-1 12H5L4 8ZM9 8V6a3 3 0 0 1 6 0v2"></path></svg><span id="cartCount" class="cart-count" hidden>0</span></button>
+      </div>
+    </div>
+    <nav class="mobile-nav" aria-label="تنقل المتجر على الجوال"><a href="#collection">تسوقي الفساتين</a><button type="button" class="text-button" data-order-help>الطلب والتوصيل</button></nav>
+    <div class="search-row container" id="searchRow"><label class="sr-only" for="siteSearch">ابحثي عن فستان</label><span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg></span><input id="siteSearch" type="search" placeholder="ابحثي عن فستان أو قفطان..."><button id="clearSearch" class="text-button">مسح</button></div>
+  </header>
+  <main>
+    <section class="shop-categories"><div class="container"><div class="category-heading"><h2>تسوقي حسب النوع</h2><a href="#collection">عرض الكل</a></div><div id="categoryFilters" class="filter-pills" role="group" aria-label="تصفية حسب النوع"></div></div></section>
+    <section class="hero" id="heroPromotion"></section>
+    <section class="promo-section container" id="promotionCards" aria-label="إعلانات المتجر"></section>
+    <section class="collection section-pad" id="collection"><div class="container"><div class="section-heading"><div><span class="eyebrow">NEW ARRIVALS</span><h2>وصل حديثًا</h2><p>اختاري القطعة لتشاهدي المقاسات المتوفرة وتفاصيلها.</p></div><span id="productResult" class="result-count"></span></div><div id="productGrid" class="product-grid"></div><div id="emptyProducts" class="empty-state" hidden>ما لقينا قطع مطابقة. جرّبي بحثًا آخر.</div></div></section>
+  </main>
+  <nav class="mobile-bottom-nav" aria-label="التنقل السريع"><a href="./index.html" class="active"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-7 9 7v9H3z"></path><path d="M9 20v-6h6v6"></path></svg><span>الرئيسية</span></a><button id="mobileSearchButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg><span>بحث</span></button><button id="mobileCartButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16l-1 12H5L4 8ZM9 8V6a3 3 0 0 1 6 0v2"></path></svg><span>السلة</span></button><button id="mobileAccountButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c.5-4.2 3.2-6 8-6s7.5 1.8 8 6"></path></svg><span>حسابي</span></button><button id="mobileNotificationButton" type="button" class="customer-bell" aria-label="إشعاراتي"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span>الإشعارات</span><b id="mobileNotificationCount" class="cart-count" hidden></b></button><button id="mobileInstallButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 17v3h16v-3"></path></svg><span>التطبيق</span></button></nav>
+
+  <div id="overlay" class="overlay" hidden></div>
+  <aside id="cartDrawer" class="drawer" role="dialog" aria-modal="true" aria-label="سلة المشتريات" aria-hidden="true"><div class="drawer-head"><div><small class="eyebrow">MANAL STORE</small><h2>سلة المشتريات</h2><p id="cartItemCount" class="cart-item-count"></p></div><button class="close-button" data-close aria-label="إغلاق">×</button></div><div id="cartItems" class="drawer-body"></div><div class="drawer-foot"><div class="total-line"><span>المجموع الفرعي</span><strong id="cartSubtotal">0 ₪</strong></div><small>رسوم التوصيل تحسب حسب المنطقة عند الطلب.</small><button id="checkoutButton" class="button button-dark wide">إتمام الطلب <span aria-hidden="true">←</span></button></div></aside>
+  <div id="productModal" class="modal product-modal" role="dialog" aria-modal="true" aria-label="تفاصيل المنتج" aria-hidden="true"></div>
+  <div id="authModal" class="modal small-modal" role="dialog" aria-modal="true" aria-label="تسجيل الدخول" aria-hidden="true"></div>
+  <div id="checkoutModal" class="modal checkout-modal" role="dialog" aria-modal="true" aria-label="إتمام الطلب" aria-hidden="true"></div>
+  <div id="orderSuccessModal" class="modal account-modal" role="dialog" aria-modal="true" aria-label="تأكيد الطلب" aria-hidden="true"></div>
+  <div id="accountModal" class="modal account-modal" role="dialog" aria-modal="true" aria-label="حسابي وطلباتي" aria-hidden="true"></div>
+  <div id="customerNotificationsModal" class="modal account-modal" role="dialog" aria-modal="true" aria-label="إشعاراتي" aria-hidden="true"></div>
+  <div id="orderHelpModal" class="modal small-modal" role="dialog" aria-modal="true" aria-label="معلومات الطلب" aria-hidden="true"></div>
+  <div id="installModal" class="modal small-modal" role="dialog" aria-modal="true" aria-label="تثبيت التطبيق" aria-hidden="true"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script defer src="./pwa.js"></script>
+</body>
+</html>

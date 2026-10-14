@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#242527"><title>دخول الإدارة | Manal Store</title>
+<link rel="stylesheet" href="./refined.css?v=13"><link rel="stylesheet" href="./components.css?v=13">
+<script defer src="./data.js?v=13"></script><script defer src="./admin-auth.js?v=13"></script>
+</head>
+<body class="admin-auth-page">
+<main class="admin-auth-card">
+<a href="./index.html" class="admin-auth-brand" aria-label="العودة للمتجر"><img src="./assets/manalstorelogo.png" alt="Manal Store"></a>
+<span class="eyebrow">MANAL STORE · ADMIN</span><h1 id="authHeading">دخول الإدارة</h1><p id="authDescription">أدخلي بيانات حساب الإدارة.</p>
+<form id="adminAuthForm">
+<div class="field" id="adminNameField" hidden><label for="adminName">اسم المسؤول</label><input id="adminName" name="name" autocomplete="name" minlength="2" maxlength="100"></div>
+<div class="field"><label for="adminUsername">اسم المستخدم</label><input id="adminUsername" name="username" dir="ltr" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9_.-]{3,32}"></div>
+<div class="field"><label for="adminPassword">كلمة المرور</label><input id="adminPassword" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128"></div>
+<div class="field" id="adminConfirmField" hidden><label for="adminConfirm">تأكيد كلمة المرور</label><input id="adminConfirm" name="confirm" type="password" autocomplete="new-password" minlength="8" maxlength="128"></div>
+<p id="adminAuthError" class="form-error" role="alert"></p><button id="adminAuthSubmit" type="submit" class="button button-dark wide">دخول</button>
+</form>
+<p class="admin-auth-note">حساب إدارة محلي لهذا المتصفح. لا يوفّر حماية خادم أو مزامنة بين الأجهزة.</p>
+<a class="admin-auth-return" href="./index.html">العودة إلى المتجر ←</a>
+</main>
+</body></html>

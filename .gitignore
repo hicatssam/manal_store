@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+node_modules/
+var/
+*.sqlite*
+*.db*
+*.log
+coverage/
