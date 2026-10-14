@@ -1,16 +1,12 @@
-const CACHE_NAME = 'manal-store-shell-v13';
+const CACHE_NAME = 'manal-store-shell-v14';
 const APP_FILES = [
   './',
   './index.html',
-  './admin.html',
-  './admin-login.html',
-  './admin-auth.js?v=13',
-  './refined.css?v=13',
-  './components.css?v=13',
-  './ui.js?v=13',
-  './data.js?v=13',
-  './app.js?v=13',
-  './admin.js?v=13',
+  './refined.css?v=14',
+  './components.css?v=14',
+  './ui.js?v=14',
+  './data.js?v=14',
+  './app.js?v=14',
   './pwa.js',
   './manifest.webmanifest',
   './assets/fonts/Cairo-400.woff',
@@ -42,6 +38,8 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const request = event.request;
   if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
+  // Authentication and administration should never be served from a public offline cache.
+  if (/\\/api\\//.test(new URL(request.url).pathname) || /\\/admin(?:-login)?\\.html$|\\/admin(?:-auth)?\\.js$/.test(new URL(request.url).pathname)) return;
 
   if (request.mode === 'navigate') {
     event.respondWith(

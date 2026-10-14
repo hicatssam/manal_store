@@ -1,16 +1,17 @@
-(() => {
+(async () => {
   'use strict';
   const S=window.Store,$=id=>document.getElementById(id),esc=S.escape;
-  if(!S.currentAdmin()){location.replace('./admin-login.html');return}
+  if(!await S.verifyAdmin()){location.replace('./admin-login.html');return}
   document.querySelector('.admin-shell').hidden=false;
-  $('adminLogout').onclick=()=>{S.logoutAdmin();location.replace('./admin-login.html')};
-  window.addEventListener('storage',()=>{if(!S.currentAdmin())location.replace('./admin-login.html')});
+  $('adminLogout').onclick=async()=>{await S.logoutAdmin().catch(()=>{});location.replace('./admin-login.html')};
   const iconPaths={
     bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',
     dashboard:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     orders:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M9 9h6M9 13h6M9 17h4"/>',
     bag:'<path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/>',
     users:'<circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6M17 14a5 5 0 0 1 4 5v1"/>',
+    visitors:'<path d="M3 17v-5l4-4 4 3 4-7 6 5"/><path d="M17 9h4V5"/><path d="M3 21h18"/>',
+    customer:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/>',
     categories:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><path d="M17.5 14v7M14 17.5h7"/>',
     image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.5"/><path d="m21 15-5-5-8 11M3 17l4-4 4 4"/>',
     card:'<rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M6 15h4"/>',
@@ -18,6 +19,7 @@
     coins:'<ellipse cx="9" cy="6" rx="6" ry="3"/><path d="M3 6v5c0 1.7 2.7 3 6 3M3 11v5c0 1.7 2.7 3 6 3"/><ellipse cx="16" cy="13" rx="5" ry="2.5"/><path d="M11 13v5c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-5"/>',
     external:'<path d="M14 3h7v7M21 3l-9 9M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/>',
     menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',
+    logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
     plus:'<path d="M12 5v14M5 12h14"/>',
     arrow:'<path d="M20 12H4m6-6-6 6 6 6"/>',
     check:'<path d="m5 12 4 4L19 6"/>',

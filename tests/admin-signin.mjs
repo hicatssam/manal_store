@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const load=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
+assert(!/setupAdmin\\s*[(=:]/.test(load('dist/data.js')),'Admin account setup must not be accessible in browser');
+assert(!/adminConfirmField|adminNameField|إنشاء حساب الإدارة/.test(load('dist/admin-login.html')+load('dist/admin-auth.js')));
+assert(load('dist/data.js').includes("fetch('/api/admin-auth'"));
+assert(load('api/admin-auth.js').includes('MANAL_SESSION_SECRET'));
+assert(load('dist/admin.js').includes('await S.verifyAdmin()'));
+assert(!load('dist/sw.js').includes("  './admin.html'"));
+console.log('Single-admin sign-in static checks passed.');

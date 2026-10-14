@@ -4,7 +4,7 @@
   const DATA_KEY = 'manal_store_data_v1';
   const CART_KEY = 'manal_store_cart_v1';
   const SESSION_KEY = 'manal_store_session_v2';
-  const ADMIN_SESSION_KEY = 'manal_store_admin_session_v1';
+  // Administrative session is checked by /api/admin-auth on Vercel.
   const sessions = globalThis.sessionStorage || localStorage;
   const sizes = ['36','38','40','42','44','46','48','50','52'];
   const DEFAULT_DELIVERY_FEES = {'غزة':15,'شمال غزة':20,'الوسطى':20,'خانيونس':25,'رفح':30};
@@ -81,25 +81,33 @@
     const bits=await globalThis.crypto.subtle.deriveBits({name:'PBKDF2',salt:new TextEncoder().encode(salt),iterations:120000,hash:'SHA-256'},key,256);
     return Array.from(new Uint8Array(bits),b=>b.toString(16).padStart(2,'0')).join('');
   }
-  const currentAdmin=()=>read().admins.find(a=>a.id===sessions.getItem(ADMIN_SESSION_KEY))||null;
-  function requireAdmin(){if(!currentAdmin())throw Error('سجّلي الدخول إلى لوحة الإدارة أولًا.');}
+  let adminVerified = false;
+  const currentAdmin = () => adminVerified ? {id:'single-admin',name:'إدارة المتجر'} : null;
+  function requireAdmin(){if(!adminVerified)throw Error('سجّلي الدخول إلى لوحة الإدارة أولًا.');}
   const validUsername=value=>/^[a-z0-9_.-]{3,32}$/.test(value);
-  async function setupAdmin({name,username,password}){
-    name=String(name||'').trim();username=String(username||'').trim().toLowerCase();password=String(password||'');
-    if(read().admins.length)throw Error('حساب الإدارة مُعدّ مسبقًا على هذا المتصفح.');
-    if(name.length<2||!validUsername(username)||password.length<8||password.length>128)throw Error('أدخلي الاسم، واسم مستخدم إنجليزي من 3–32 حرفًا، وكلمة مرور من 8–128 حرفًا.');
-    const salt=id('s-'),hash=await passwordHash(password,salt),data=read();
-    if(data.admins.length)throw Error('تم إعداد حساب الإدارة؛ استخدمي تسجيل الدخول.');
-    const admin={id:id('admin-'),name,username,salt,hash,createdAt:Date.now()};
-    data.admins.push(admin);write(data);sessions.setItem(ADMIN_SESSION_KEY,admin.id);return clone(admin);
+  async function verifyAdmin(){
+    try {
+      const response=await fetch('/api/admin-auth',{credentials:'same-origin',cache:'no-store'});
+      const result=await response.json();
+      adminVerified=response.ok&&result.authenticated===true;
+    } catch(_) {adminVerified=false}
+    return adminVerified;
   }
   async function loginAdmin(username,password){
-    const admin=read().admins.find(a=>a.username===String(username||'').trim().toLowerCase());
-    if(!admin||await passwordHash(String(password||''),admin.salt)!==admin.hash)throw Error('اسم المستخدم أو كلمة المرور غير صحيحة.');
-    if(!read().admins.some(a=>a.id===admin.id))throw Error('الحساب غير موجود.');
-    sessions.setItem(ADMIN_SESSION_KEY,admin.id);return clone(admin);
+    let response,result;
+    try {
+      response=await fetch('/api/admin-auth',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',cache:'no-store',body:JSON.stringify({action:'login',username,password})});
+      result=await response.json();
+    } catch(_) {throw Error('تعذّر الاتصال بالخادم. حاولي مجددًا.')}
+    if(!response.ok)throw Error(result.message||'تعذّر تسجيل الدخول.');
+    adminVerified=true;
+    return currentAdmin();
   }
-  function logoutAdmin(){sessions.removeItem(ADMIN_SESSION_KEY);window.dispatchEvent(new Event('manal:admin-session'));}
+  async function logoutAdmin(){
+    adminVerified=false;
+    try {await fetch('/api/admin-auth',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',cache:'no-store',body:JSON.stringify({action:'logout'})})}
+    finally {window.dispatchEvent(new Event('manal:admin-session'))}
+  }
   async function register({name,username,email,phone,password}){
     name=String(name||'').trim();username=String(username||'').trim().toLowerCase();email=String(email||'').trim().toLowerCase();phone=String(phone||'').trim();password=String(password||'');
     if(name.length<2||!validUsername(username)||!/^\S+@\S+\.\S+$/.test(email)||phone.length<7||password.length<8||password.length>128)throw Error('أكملي بياناتك، واسم مستخدم إنجليزي من 3–32 حرفًا، وكلمة مرور من 8–128 حرفًا.');
@@ -232,5 +240,5 @@
     write(data);return clone(o);
   }
   const receiptImage=v=>/^data:image\/jpeg;base64,[A-Za-z0-9+/]+=*$/.test(String(v||''))&&String(v).length<=700000?String(v):'';
-  window.Store={currentAdmin,setupAdmin,loginAdmin,logoutAdmin,customerNotifications,markCustomerNotificationsRead,read,cart,saveCart,money,date,escape,image,iconUrl,paymentIcon,receiptImage,stock,sizes,markNotificationsRead,recordVisit,get deliveryFees(){return {...read().deliveryFees}},saveDeliveryFees,currentUser,setSession,register,login,saveProduct,removeProduct,setUserActive,saveCategory,removeCategory,savePromotion,removePromotion,visibleProducts,savePaymentMethod,removePaymentMethod,addToCart,updateCart,createOrder,updateOrder};
+  window.Store={currentAdmin,verifyAdmin,loginAdmin,logoutAdmin,customerNotifications,markCustomerNotificationsRead,read,cart,saveCart,money,date,escape,image,iconUrl,paymentIcon,receiptImage,stock,sizes,markNotificationsRead,recordVisit,get deliveryFees(){return {...read().deliveryFees}},saveDeliveryFees,currentUser,setSession,register,login,saveProduct,removeProduct,setUserActive,saveCategory,removeCategory,savePromotion,removePromotion,visibleProducts,savePaymentMethod,removePaymentMethod,addToCart,updateCart,createOrder,updateOrder};
 })();
